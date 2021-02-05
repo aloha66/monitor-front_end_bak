@@ -24,7 +24,7 @@ export type DictData = {
 
 export function createDict(data: DictData) {
   return request({
-    url: '/api/v1/createDict',
+    url: '/api/v1/dict/createDict',
     method: 'post',
     data,
   });

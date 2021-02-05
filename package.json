@@ -20,14 +20,14 @@
     ]
   },
   "dependencies": {
-    "@ant-design/pro-form": "^1.14.1",
+    "@ant-design/pro-form": "^1.15.4",
     "@ant-design/pro-layout": "^6.5.0",
-    "@ant-design/pro-table": "^2.27.1",
+    "@ant-design/pro-table": "^2.29.0",
     "@umijs/preset-react": "1.x",
-    "ahooks": "^2.9.4",
-    "antd": "^4.10.2",
+    "ahooks": "^2.9.6",
+    "antd": "^4.12.2",
     "axios": "^0.21.1",
-    "umi": "^3.3.4"
+    "umi": "^3.3.7"
   },
   "devDependencies": {
     "@types/react": "^16.9.0",

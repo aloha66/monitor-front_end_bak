@@ -10,6 +10,11 @@ export default defineConfig({
     // "btn-primary-bg": "#2F54EB"
   },
   proxy: {
+    '/api/v1/dict': {
+      target: ' http://localhost:8888',
+      changeOrigin: true,
+      // pathRewrite: { '/dict': '' },
+    },
     '/api': {
       target: ' http://localhost:7300/mock/60094c18d40d275b7cd2efa6/monitor',
       changeOrigin: true,

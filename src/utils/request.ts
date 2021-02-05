@@ -16,7 +16,12 @@ service.interceptors.request.use(
 );
 
 service.interceptors.response.use((response) => {
-  return response.data;
+  if (response.data.code === 0) {
+    return response.data;
+  } else {
+    return Promise.reject(response.data);
+  }
+  // return response.data;
 });
 
 export default service;

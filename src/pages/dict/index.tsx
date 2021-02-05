@@ -82,48 +82,56 @@ const expandedRowRender = ({ code }: any) => {
   );
 };
 
+interface AddFormProps {
+  run: (dd: DictData) => Promise<any>;
+}
+
+const AddForm = ({ run }: AddFormProps) => (
+  <ModalForm<DictData>
+    title="新建父字典"
+    trigger={
+      <Button type="primary">
+        <PlusOutlined />
+        新建父字典
+      </Button>
+    }
+    modalProps={{
+      onCancel: () => console.log('onCancel'),
+    }}
+    onFinish={async (values) => {
+      try {
+        await run(values);
+        message.success('提交成功');
+        return true;
+      } catch {
+        return false;
+      }
+    }}
+  >
+    <ProForm.Group>
+      <ProFormText
+        width="md"
+        name="name"
+        label="	字典名称"
+        tooltip="最长为 24 位"
+        placeholder="请输入字典名称"
+        rules={[{ required: true, message: '请输入字典名称' }]}
+      />
+      <ProFormText
+        width="md"
+        name="value"
+        label="字典值"
+        placeholder="请输入字典值"
+        rules={[{ required: true, message: '请输入字典值' }]}
+      />
+    </ProForm.Group>
+  </ModalForm>
+);
+
 export default () => {
   const actionRef = useRef<ActionType>();
   const addRequest = useRequest((data) => createDict(data), { manual: true });
 
-  const AddForm = () => (
-    <ModalForm<{
-      name: string;
-      company: string;
-    }>
-      title="新建父字典"
-      trigger={
-        <Button type="primary">
-          <PlusOutlined />
-          新建父字典
-        </Button>
-      }
-      modalProps={{
-        onCancel: () => console.log('onCancel'),
-      }}
-      onFinish={async (values) => {
-        const result = await addRequest.run(values);
-        message.success('提交成功');
-        return true;
-      }}
-    >
-      <ProForm.Group>
-        <ProFormText
-          width="md"
-          name="name"
-          label="	字典名称"
-          tooltip="最长为 24 位"
-          placeholder="请输入字典名称"
-        />
-        <ProFormText
-          width="md"
-          name="value"
-          label="字典值"
-          placeholder="请输入字典值"
-        />
-      </ProForm.Group>
-    </ModalForm>
-  );
   return (
     <ProTable<DictData>
       actionRef={actionRef}
@@ -136,7 +144,7 @@ export default () => {
       expandable={{ expandedRowRender }}
       dateFormatter="string"
       headerTitle="字典管理"
-      toolBarRender={() => [<AddForm />]}
+      toolBarRender={() => [<AddForm run={addRequest.run} />]}
     />
   );
 };
